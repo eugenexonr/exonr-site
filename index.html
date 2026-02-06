@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXONR | AI Automation for Home Services</title>
+    <meta name="description" content="Stop losing leads. Automate your follow-ups, reviews, and marketing — so you can focus on the job. Built for HVAC, roofing, plumbing & contractors in Colorado.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy: #1C2B60;
+            --navy-dark: #131e42;
+            --navy-light: #263a7a;
+            --red: #D41E40;
+            --red-hover: #e8254a;
+            --purple: #782A80;
+            --purple-light: #9a3fa4;
+            --white: #ffffff;
+            --gray-50: #f8f9fc;
+            --gray-100: #eef0f6;
+            --gray-200: #d8dce8;
+            --gray-600: #6b7294;
+            --gray-800: #2d3250;
+            --text: #1a1d2e;
+            --text-light: #5a5f7a;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: var(--white);
+        }
+
+        /* ===== UTILITY ===== */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-up-delay-1 { transition-delay: 0.1s; }
+        .fade-up-delay-2 { transition-delay: 0.2s; }
+        .fade-up-delay-3 { transition-delay: 0.3s; }
+        .fade-up-delay-4 { transition-delay: 0.4s; }
+        .fade-up-delay-5 { transition-delay: 0.5s; }
+
+        /* ===== NAV ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+            transition: background 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+        }
+        .nav.scrolled {
+            background: rgba(28, 43, 96, 0.97);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+            padding: 10px 0;
+            backdrop-filter: blur(10px);
+        }
+        .nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+        .nav-logo span { color: var(--red); }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--white); }
+        .nav-cta {
+            background: var(--red) !important;
+            color: var(--white) !important;
+            padding: 10px 24px !important;
+            border-radius: 6px;
+            transition: background 0.2s, transform 0.2s !important;
+        }
+        .nav-cta:hover {
+            background: var(--red-hover) !important;
+            transform: translateY(-1px);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .mobile-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            margin: 6px 0;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .mobile-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+        .mobile-toggle.active span:nth-child(2) { opacity: 0; }
+        .mobile-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, var(--navy-light) 100%);
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(212, 30, 64, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse-glow 8s ease-in-out infinite;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(120, 42, 128, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse-glow 10s ease-in-out infinite 2s;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.15); opacity: 0.7; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(212, 30, 64, 0.15);
+            border: 1px solid rgba(212, 30, 64, 0.3);
+            color: #ff6b82;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+        .hero h1 {
+            font-size: clamp(2.4rem, 5vw, 3.6rem);
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1.15;
+            margin-bottom: 24px;
+        }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--red), #ff6b82);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+            margin-bottom: 40px;
+            max-width: 560px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 36px;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.25s ease;
+        }
+        .btn-primary {
+            background: var(--red);
+            color: var(--white);
+            box-shadow: 0 4px 20px rgba(212, 30, 64, 0.35);
+        }
+        .btn-primary:hover {
+            background: var(--red-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(212, 30, 64, 0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .btn-outline:hover {
+            border-color: var(--white);
+            background: rgba(255,255,255,0.05);
+            transform: translateY(-2px);
+        }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            background: var(--white);
+            padding: 48px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+        .stat-item h3 {
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+        .stat-item h3 span { color: var(--red); }
+        .stat-item p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* ===== PROBLEM SECTION ===== */
+        .problem {
+            padding: 100px 0;
+            background: var(--gray-50);
+        }
+        .problem-header {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 64px;
+        }
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 800;
+            color: var(--navy);
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .pain-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid var(--gray-100);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .pain-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(28, 43, 96, 0.08);
+        }
+        .pain-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            background: rgba(212, 30, 64, 0.08);
+        }
+        .pain-card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+        .pain-card p {
+            color: var(--text-light);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        /* ===== INDUSTRIES ===== */
+        .industries {
+            padding: 80px 0;
+            background: var(--white);
+        }
+        .industries-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 56px;
+        }
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 20px;
+        }
+        .industry-item {
+            text-align: center;
+            padding: 28px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--gray-100);
+            background: var(--gray-50);
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .industry-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(28, 43, 96, 0.08);
+            border-color: var(--red);
+        }
+        .industry-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .industry-item span:last-child {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== SERVICES ===== */
+        .services {
+            padding: 100px 0;
+            background: var(--gray-50);
+        }
+        .services-header {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 72px;
+        }
+
+        .service-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+        }
+        .service-card {
+            position: relative;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 40px 36px;
+            border: 1px solid var(--gray-100);
+            transition: all 0.35s ease;
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--red), var(--purple));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.35s ease;
+        }
+        .service-card:hover::before { transform: scaleX(1); }
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(28, 43, 96, 0.1);
+            border-color: transparent;
+        }
+
+        .service-number {
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--red);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .service-card h3 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+        .service-card > p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+        .service-features {
+            list-style: none;
+        }
+        .service-features li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 10px;
+            font-size: 0.88rem;
+            color: var(--gray-800);
+            font-weight: 500;
+        }
+        .service-features li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            background: var(--red);
+            border-radius: 50%;
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .how-it-works {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--navy-dark) 0%, var(--navy) 100%);
+        }
+        .how-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 72px;
+        }
+        .how-header .section-label { color: #ff6b82; }
+        .how-header .section-title { color: var(--white); }
+        .how-header .section-subtitle { color: rgba(255,255,255,0.6); }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .step {
+            text-align: center;
+            position: relative;
+        }
+        .step-number {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--red), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--white);
+            margin: 0 auto 24px;
+            box-shadow: 0 8px 25px rgba(212, 30, 64, 0.3);
+        }
+        .step h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+        .step p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.6;
+        }
+
+        /* ===== RESULTS ===== */
+        .results {
+            padding: 100px 0;
+            background: var(--gray-50);
+        }
+        .results-header {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 64px;
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+        .result-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 36px 28px;
+            text-align: center;
+            border: 1px solid var(--gray-100);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .result-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(28, 43, 96, 0.08);
+        }
+        .result-number {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--navy);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .result-number span { color: var(--red); }
+        .result-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+        .result-card p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* ===== FAQ ===== */
+        .faq {
+            padding: 100px 0;
+            background: var(--white);
+        }
+        .faq-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 56px;
+        }
+        .faq-list {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            border: 1px solid var(--gray-100);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+        }
+        .faq-item:hover {
+            box-shadow: 0 4px 16px rgba(28, 43, 96, 0.06);
+        }
+        .faq-question {
+            width: 100%;
+            background: var(--gray-50);
+            border: none;
+            padding: 22px 28px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--navy);
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            transition: background 0.2s;
+        }
+        .faq-question:hover { background: var(--gray-100); }
+        .faq-icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--navy);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 400;
+            transition: transform 0.3s, background 0.3s;
+        }
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+            background: var(--red);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+        }
+        .faq-answer-inner {
+            padding: 0 28px 24px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* ===== CTA / FORM ===== */
+        .cta-section {
+            padding: 100px 0;
+            background: var(--gray-50);
+        }
+        .cta-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .cta-text h2 {
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            font-weight: 800;
+            color: var(--navy);
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+        .cta-text h2 .highlight {
+            color: var(--red);
+        }
+        .cta-text p {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+        .cta-checklist {
+            list-style: none;
+        }
+        .cta-checklist li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+        .cta-checklist li svg {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            color: var(--red);
+        }
+
+        .form-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 48px 40px;
+            border: 1px solid var(--gray-100);
+            box-shadow: 0 20px 60px rgba(28, 43, 96, 0.06);
+        }
+        .form-card h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+        .form-card > p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 28px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+        .form-group label .optional {
+            font-weight: 500;
+            color: var(--gray-600);
+            font-size: 0.75rem;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 8px;
+            border: 1.5px solid var(--gray-200);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text);
+            background: var(--white);
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(28, 43, 96, 0.08);
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+
+        .form-submit {
+            width: 100%;
+            padding: 16px;
+            margin-top: 8px;
+        }
+
+        .form-note {
+            text-align: center;
+            margin-top: 14px;
+            font-size: 0.78rem;
+            color: var(--gray-600);
+        }
+
+        /* ===== CHAT WIDGET ===== */
+        .chat-widget {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+        }
+        .chat-bubble {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--red), var(--purple));
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 24px rgba(212, 30, 64, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        .chat-bubble:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 32px rgba(212, 30, 64, 0.5);
+        }
+        .chat-bubble svg {
+            width: 28px;
+            height: 28px;
+            color: var(--white);
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .chat-bubble .chat-close {
+            position: absolute;
+            opacity: 0;
+            transform: rotate(-90deg);
+        }
+        .chat-widget.open .chat-bubble .chat-open { opacity: 0; transform: rotate(90deg); }
+        .chat-widget.open .chat-bubble .chat-close { opacity: 1; transform: rotate(0); }
+
+        .chat-pulse {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 16px;
+            height: 16px;
+            background: #22c55e;
+            border-radius: 50%;
+            border: 3px solid var(--white);
+            animation: chat-ping 2s ease-in-out infinite;
+        }
+        @keyframes chat-ping {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .chat-tooltip {
+            position: absolute;
+            bottom: 78px;
+            right: 0;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 14px 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            white-space: nowrap;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--navy);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+        }
+        .chat-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            right: 24px;
+            width: 12px;
+            height: 12px;
+            background: var(--white);
+            transform: rotate(45deg);
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+        .chat-widget:not(.open) .chat-bubble:hover + .chat-tooltip,
+        .chat-tooltip.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chat-panel {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 360px;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 16px 50px rgba(0,0,0,0.15);
+            overflow: hidden;
+            transform: scale(0.8) translateY(20px);
+            transform-origin: bottom right;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .chat-widget.open .chat-panel {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+        .chat-panel-header {
+            background: linear-gradient(135deg, var(--navy), var(--navy-light));
+            padding: 16px 20px;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .chat-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--red), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 900;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+        .chat-panel-header-text h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 1px;
+        }
+        .chat-panel-header-text p {
+            font-size: 0.72rem;
+            opacity: 0.7;
+        }
+        .chat-online {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            margin-left: auto;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 2px rgba(34,197,94,0.3);
+        }
+
+        .chat-messages {
+            height: 320px;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            scroll-behavior: smooth;
+        }
+        .chat-msg {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 0.84rem;
+            line-height: 1.5;
+            animation: msg-in 0.3s ease;
+        }
+        @keyframes msg-in {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chat-msg.bot {
+            background: var(--gray-50);
+            color: var(--text);
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+        }
+        .chat-msg.user {
+            background: var(--navy);
+            color: var(--white);
+            border-bottom-right-radius: 4px;
+            align-self: flex-end;
+        }
+
+        .chat-typing {
+            align-self: flex-start;
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px;
+            background: var(--gray-50);
+            border-radius: 14px;
+            border-bottom-left-radius: 4px;
+        }
+        .chat-typing span {
+            width: 6px;
+            height: 6px;
+            background: var(--gray-600);
+            border-radius: 50%;
+            animation: typing-dot 1.2s ease-in-out infinite;
+        }
+        .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+        .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing-dot {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-4px); opacity: 1; }
+        }
+
+        .chat-quick-replies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-self: flex-start;
+            animation: msg-in 0.3s ease;
+        }
+        .chat-quick-btn {
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 1.5px solid var(--gray-200);
+            background: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--navy);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .chat-quick-btn:hover {
+            border-color: var(--red);
+            color: var(--red);
+            background: rgba(212, 30, 64, 0.04);
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px;
+            border-top: 1px solid var(--gray-100);
+            background: var(--white);
+        }
+        .chat-input {
+            flex: 1;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 20px;
+            padding: 10px 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.84rem;
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .chat-input:focus { border-color: var(--navy); }
+        .chat-input:disabled {
+            background: var(--gray-50);
+            color: var(--gray-600);
+        }
+        .chat-send {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--red);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, transform 0.2s;
+            flex-shrink: 0;
+        }
+        .chat-send:hover { background: var(--red-hover); transform: scale(1.05); }
+        .chat-send:disabled { background: var(--gray-200); cursor: default; transform: none; }
+        .chat-send svg { width: 16px; height: 16px; color: var(--white); }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--navy-dark);
+            padding: 48px 0 32px;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .footer-logo {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: 2px;
+        }
+        .footer-logo span { color: var(--red); }
+        .footer-text {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.82rem;
+        }
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 0.82rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--white); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 968px) {
+            .service-cards { grid-template-columns: 1fr; }
+            .cta-wrapper { grid-template-columns: 1fr; gap: 48px; }
+            .stats-grid { grid-template-columns: 1fr; gap: 24px; }
+            .steps-grid { grid-template-columns: 1fr; gap: 32px; }
+            .industries-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--navy-dark);
+                flex-direction: column;
+                padding: 24px;
+                gap: 16px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            }
+            .nav-links.open { display: flex; }
+            .mobile-toggle { display: block; }
+
+            .hero { min-height: auto; padding: 140px 0 80px; }
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+            .hero-buttons { flex-direction: column; }
+            .hero-buttons .btn { text-align: center; justify-content: center; }
+
+            .pain-grid { grid-template-columns: 1fr; }
+            .results-grid { grid-template-columns: 1fr 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+
+            .form-card { padding: 32px 24px; }
+
+            .chat-panel { width: calc(100vw - 32px); right: -12px; }
+        }
+
+        @media (max-width: 480px) {
+            .results-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 1.6rem; }
+            .industries-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+            .industry-item { padding: 20px 8px; }
+            .industry-icon { font-size: 1.6rem; }
+        }
+
+        /* ===== SUCCESS MESSAGE ===== */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .form-success.show { display: block; }
+        .form-success svg {
+            width: 64px;
+            height: 64px;
+            color: var(--red);
+            margin-bottom: 16px;
+        }
+        .form-success h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+        .form-success p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="nav" id="nav">
+    <div class="container">
+        <a href="#hero" class="nav-logo">E<span>X</span>ONR</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#industries">Industries</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact" class="nav-cta">Free Consultation</a></li>
+        </ul>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-badge fade-up">AI Automation for Home Services</div>
+            <h1 class="fade-up fade-up-delay-1">
+                You Run the Business.<br>
+                <span class="highlight">We Make Sure No Lead Slips Through.</span>
+            </h1>
+            <p class="fade-up fade-up-delay-2">
+                Missed calls, slow follow-ups, and no reviews are costing you thousands every month.
+                We set up automated systems that respond to leads in seconds, get you 5-star reviews on autopilot,
+                and keep your marketing running &mdash; while you're on the job site.
+            </p>
+            <div class="hero-buttons fade-up fade-up-delay-3">
+                <a href="#contact" class="btn btn-primary">Get a Free Consultation</a>
+                <a href="#services" class="btn btn-outline">See How It Works</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<section class="stats-bar">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item fade-up">
+                <h3><span>78</span>%</h3>
+                <p>of customers hire the first company that responds</p>
+            </div>
+            <div class="stat-item fade-up fade-up-delay-1">
+                <h3>$<span>15K</span>+</h3>
+                <p>average annual revenue lost to missed leads</p>
+            </div>
+            <div class="stat-item fade-up fade-up-delay-2">
+                <h3><span>5</span> min</h3>
+                <p>is all it takes to lose a lead to your competitor</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PROBLEM ===== -->
+<section class="problem" id="problem">
+    <div class="container">
+        <div class="problem-header fade-up">
+            <div class="section-label">Sound Familiar?</div>
+            <h2 class="section-title">You're Great at Your Trade. But Leads Keep Falling Through the Cracks.</h2>
+            <p class="section-subtitle">You didn't start a business to sit at a computer all day. But if nobody's following up, nobody's booking.</p>
+        </div>
+        <div class="pain-grid">
+            <div class="pain-card fade-up">
+                <div class="pain-icon">&#128242;</div>
+                <h4>Missed Calls = Lost Jobs</h4>
+                <p>You're on a roof or under a house. By the time you call back, they already hired someone else.</p>
+            </div>
+            <div class="pain-card fade-up fade-up-delay-1">
+                <div class="pain-icon">&#11088;</div>
+                <h4>Happy Customers, Zero Reviews</h4>
+                <p>Your customers love you, but nobody's asking them to leave a review. Meanwhile, your competitor with worse work has 200+ reviews.</p>
+            </div>
+            <div class="pain-card fade-up fade-up-delay-2">
+                <div class="pain-icon">&#128176;</div>
+                <h4>Marketing That Eats Your Budget</h4>
+                <p>You're spending on ads but have no idea what's working. Leads come in, but the follow-up is inconsistent.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== INDUSTRIES ===== -->
+<section class="industries" id="industries">
+    <div class="container">
+        <div class="industries-header fade-up">
+            <div class="section-label">Who We Work With</div>
+            <h2 class="section-title">Built for Local Businesses in Colorado</h2>
+            <p class="section-subtitle">If you're too busy running your business to chase leads, follow up, and ask for reviews &mdash; that's exactly when automation makes you money.</p>
+        </div>
+        <div class="industries-grid">
+            <div class="industry-item fade-up">
+                <span class="industry-icon">&#10052;&#65039;</span>
+                <span>HVAC</span>
+            </div>
+            <div class="industry-item fade-up fade-up-delay-1">
+                <span class="industry-icon">&#128295;</span>
+                <span>Plumbing</span>
+            </div>
+            <div class="industry-item fade-up fade-up-delay-1">
+                <span class="industry-icon">&#127969;</span>
+                <span>Roofing</span>
+            </div>
+            <div class="industry-item fade-up fade-up-delay-2">
+                <span class="industry-icon">&#9889;</span>
+                <span>Electrical</span>
+            </div>
+            <div class="industry-item fade-up fade-up-delay-2">
+                <span class="industry-icon">&#127795;</span>
+                <span>Landscaping</span>
+            </div>
+            <div class="industry-item fade-up fade-up-delay-3">
+                <span class="industry-icon">&#128027;</span>
+                <span>Pest Control</span>
+            </div>
+            <div class="industry-item fade-up fade-up-delay-3">
+                <span class="industry-icon">&#127959;&#65039;</span>
+                <span>Construction</span>
+            </div>
+            <div class="industry-item fade-up fade-up-delay-4">
+                <span class="industry-icon">&#128225;</span>
+                <span>Security Systems</span>
+            </div>
+            <div class="industry-item fade-up fade-up-delay-4">
+                <span class="industry-icon">&#128293;</span>
+                <span>Fire Protection</span>
+            </div>
+            <div class="industry-item fade-up fade-up-delay-4">
+                <span class="industry-icon">&#128663;</span>
+                <span>Moving Services</span>
+            </div>
+            <div class="industry-item fade-up fade-up-delay-5">
+                <span class="industry-icon">&#127970;</span>
+                <span>Property Mgmt</span>
+            </div>
+            <div class="industry-item fade-up fade-up-delay-5">
+                <span class="industry-icon">&#128663;</span>
+                <span>Auto Detailing</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="services" id="services">
+    <div class="container">
+        <div class="services-header fade-up">
+            <div class="section-label">What We Do</div>
+            <h2 class="section-title">Automation That Pays for Itself</h2>
+            <p class="section-subtitle">Simple systems that work in the background 24/7 &mdash; so every lead gets a response, every happy customer leaves a review, and your marketing runs without babysitting.</p>
+        </div>
+        <div class="service-cards">
+            <div class="service-card fade-up">
+                <div class="service-number">01 &mdash; Lead Catcher</div>
+                <h3>Never Miss a Lead Again</h3>
+                <p>When someone fills out your form or calls after hours, they get an instant response. The system qualifies the lead, books the appointment, and texts you the details.</p>
+                <ul class="service-features">
+                    <li>Instant text/email response (under 60 seconds)</li>
+                    <li>Automatic follow-up if they don't respond</li>
+                    <li>Calendar booking without back-and-forth</li>
+                    <li>All leads tracked in one place</li>
+                </ul>
+            </div>
+            <div class="service-card fade-up fade-up-delay-1">
+                <div class="service-number">02 &mdash; 5-Star Reviews</div>
+                <h3>Get Reviews on Autopilot</h3>
+                <p>After every completed job, the system automatically asks your customer for a review at the right moment &mdash; when they're happiest with your work.</p>
+                <ul class="service-features">
+                    <li>Automated review request after job completion</li>
+                    <li>Smart timing for highest response rate</li>
+                    <li>Direct Google/Yelp review links</li>
+                    <li>Negative feedback caught privately before it goes public</li>
+                </ul>
+            </div>
+            <div class="service-card fade-up fade-up-delay-2">
+                <div class="service-number">03 &mdash; Marketing Autopilot</div>
+                <h3>Ads That Actually Make You Money</h3>
+                <p>AI monitors your Google Ads around the clock &mdash; pausing what's wasting money, scaling what's working, and sending you plain-English reports on your ROI.</p>
+                <ul class="service-features">
+                    <li>AI-managed Google Ads campaigns</li>
+                    <li>Weekly performance reports you can actually understand</li>
+                    <li>Budget protection &mdash; no runaway spending</li>
+                    <li>Targeted to your service area in Colorado</li>
+                </ul>
+            </div>
+            <div class="service-card fade-up fade-up-delay-3">
+                <div class="service-number">04 &mdash; Business Brain</div>
+                <h3>Custom Automation, Built for You</h3>
+                <p>Got a specific process that eats up your time? We build a custom automation for it &mdash; invoicing, scheduling, inventory, you name it.</p>
+                <ul class="service-features">
+                    <li>Process audit to find your biggest time wasters</li>
+                    <li>Custom-built automation (not cookie-cutter)</li>
+                    <li>Integrates with tools you already use</li>
+                    <li>ROI guarantee or we refund the setup</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="how-it-works" id="how-it-works">
+    <div class="container">
+        <div class="how-header fade-up">
+            <div class="section-label">Simple Process</div>
+            <h2 class="section-title">Up and Running in Days, Not Months</h2>
+            <p class="section-subtitle">No long contracts. No confusing tech talk. Just results.</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step fade-up">
+                <div class="step-number">1</div>
+                <h4>Free Consultation</h4>
+                <p>We look at your business, find where you're losing money, and show you exactly what automation can fix &mdash; with real dollar estimates.</p>
+            </div>
+            <div class="step fade-up fade-up-delay-1">
+                <div class="step-number">2</div>
+                <h4>We Build It</h4>
+                <p>Our team sets everything up. You don't need to learn any software or change how you work. It plugs right into your existing process.</p>
+            </div>
+            <div class="step fade-up fade-up-delay-2">
+                <div class="step-number">3</div>
+                <h4>You See Results</h4>
+                <p>More leads answered. More reviews posted. More money in your pocket. You get a monthly report showing exactly how much the system saved you.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== RESULTS ===== -->
+<section class="results" id="results">
+    <div class="container">
+        <div class="results-header fade-up">
+            <div class="section-label">Real Numbers</div>
+            <h2 class="section-title">What Automation Does for Businesses Like Yours</h2>
+            <p class="section-subtitle">These are the results our systems are built to deliver for home service businesses in Colorado.</p>
+        </div>
+        <div class="results-grid">
+            <div class="result-card fade-up">
+                <div class="result-number"><span>3x</span></div>
+                <h4>Faster Lead Response</h4>
+                <p>Respond in under 60 seconds instead of hours</p>
+            </div>
+            <div class="result-card fade-up fade-up-delay-1">
+                <div class="result-number"><span>40</span>%</div>
+                <h4>More 5-Star Reviews</h4>
+                <p>Just by asking at the right time, automatically</p>
+            </div>
+            <div class="result-card fade-up fade-up-delay-2">
+                <div class="result-number"><span>25</span>%</div>
+                <h4>Lower Ad Spend Waste</h4>
+                <p>AI cuts the keywords and ads that don't convert</p>
+            </div>
+            <div class="result-card fade-up fade-up-delay-3">
+                <div class="result-number"><span>10</span>+</div>
+                <h4>Hours Saved Per Week</h4>
+                <p>No more manual follow-ups and chasing callbacks</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq" id="faq">
+    <div class="container">
+        <div class="faq-header fade-up">
+            <div class="section-label">Questions?</div>
+            <h2 class="section-title">Straight Answers. No Tech Talk.</h2>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item fade-up">
+                <button class="faq-question">
+                    How much does this cost?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        We price based on the money we save you. During the free consultation, we estimate your annual savings from automation &mdash; then charge a fraction of that. If the system doesn't save you more than it costs, you don't pay. Simple as that.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item fade-up fade-up-delay-1">
+                <button class="faq-question">
+                    Do I need to learn any new software?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        No. Everything runs in the background. You'll get texts and emails like you normally do &mdash; the only difference is your leads get answered instantly, reviews get requested automatically, and you see clear reports on what's working. Nothing to log into or figure out.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item fade-up fade-up-delay-2">
+                <button class="faq-question">
+                    How fast can you set this up?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Most setups are live within 3-5 business days. Lead Catcher and 5-Star Reviews can often be running in 48 hours. Google Ads management takes a bit longer because we do proper keyword research and campaign setup for your specific service area.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item fade-up fade-up-delay-3">
+                <button class="faq-question">
+                    What if I already have a website / CRM / booking tool?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        We work with what you've got. Our automations plug into your existing website, Google Business profile, scheduling tools, and whatever else you use. No need to switch platforms or start over.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item fade-up fade-up-delay-4">
+                <button class="faq-question">
+                    Is this just for Colorado businesses?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        We specialize in Colorado home service businesses because we understand this market. But the automation works for any location. If you're outside Colorado, reach out &mdash; we're happy to chat.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item fade-up fade-up-delay-4">
+                <button class="faq-question">
+                    What happens if something breaks?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        All our setups come with a monthly support plan. We keep an eye on your automations and if anything needs attention, we handle it within one business day. You also get a direct line to our team for questions or changes. No surprise fees &mdash; support is included in your monthly plan.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CONTACT / FORM ===== -->
+<section class="cta-section" id="contact">
+    <div class="container">
+        <div class="cta-wrapper">
+            <div class="cta-text fade-up">
+                <div class="section-label">Get Started</div>
+                <h2>Stop Losing Money to <span class="highlight">Missed Leads</span></h2>
+                <p>
+                    Book a free consultation and we'll show you exactly how much revenue you're leaving on the table &mdash;
+                    and what it would look like with automation handling it for you.
+                </p>
+                <ul class="cta-checklist">
+                    <li>
+                        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        100% free &mdash; no obligation, no pressure
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        We estimate your ROI with real numbers
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        You only pay if the system saves you money
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Built for Colorado home service businesses
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-card fade-up fade-up-delay-1">
+                <h3>Get Your Free Consultation</h3>
+                <p>Tell us about your business and we'll reach out within 24 hours.</p>
+
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Smith" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="john@company.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City / ZIP <span class="optional">(optional)</span></label>
+                            <input type="text" id="city" name="city" placeholder="Denver, CO or 80202">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="business">Business Type</label>
+                        <select id="business" name="business" required>
+                            <option value="" disabled selected>Select your trade</option>
+                            <option value="hvac">HVAC</option>
+                            <option value="plumbing">Plumbing</option>
+                            <option value="roofing">Roofing</option>
+                            <option value="electrical">Electrical</option>
+                            <option value="landscaping">Landscaping</option>
+                            <option value="painting">Painting</option>
+                            <option value="general-contractor">General Contractor</option>
+                            <option value="pest-control">Pest Control</option>
+                            <option value="garage-door">Garage Door Services</option>
+                            <option value="auto-detailing">Auto Detailing</option>
+                            <option value="pool-service">Pool Service</option>
+                            <option value="carpet-cleaning">Carpet Cleaning</option>
+                            <option value="locksmith">Locksmith</option>
+                            <option value="property-management">Property Management</option>
+                            <option value="cleaning">Cleaning Services</option>
+                            <option value="dental-medical">Dental / Medical Office</option>
+                            <option value="real-estate">Real Estate</option>
+                            <option value="auto-repair">Auto Repair</option>
+                            <option value="restaurant">Restaurant / Food Service</option>
+                            <option value="other">Other Local Business</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="challenge">Biggest Challenge Right Now</label>
+                        <textarea id="challenge" name="challenge" placeholder="E.g., I miss too many calls when I'm on a job..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary form-submit">Get My Free Consultation</button>
+                    <p class="form-note">We'll email you within 24 hours. No spam, ever.</p>
+                </form>
+
+                <div class="form-success" id="formSuccess">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <h3>We Got Your Message!</h3>
+                    <p>We'll review your info and reach out within 24 hours to schedule your free consultation.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">E<span>X</span>ONR</div>
+            <p class="footer-text">&copy; 2026 Exodeus LLC. All rights reserved. Colorado, USA.</p>
+            <ul class="footer-links">
+                <li><a href="mailto:eugene@exonr.com">eugene@exonr.com</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<!-- ===== CHAT WIDGET ===== -->
+<div class="chat-widget" id="chatWidget">
+    <button class="chat-bubble" id="chatBubble" aria-label="Chat with us">
+        <svg class="chat-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <svg class="chat-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+        <span class="chat-pulse"></span>
+    </button>
+    <div class="chat-tooltip" id="chatTooltip">Quick question? Send us a message.</div>
+
+    <div class="chat-panel" id="chatPanel">
+        <div class="chat-panel-header">
+            <div class="chat-avatar">EX</div>
+            <div class="chat-panel-header-text">
+                <h4>EXONR Assistant</h4>
+                <p>Usually replies instantly</p>
+            </div>
+            <div class="chat-online"></div>
+        </div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." disabled>
+            <button class="chat-send" id="chatSend" disabled aria-label="Send">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ===== SCROLL ANIMATIONS =====
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // ===== NAV SCROLL EFFECT =====
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ===== MOBILE MENU =====
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+    mobileToggle.addEventListener('click', () => {
+        mobileToggle.classList.toggle('active');
+        navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileToggle.classList.remove('active');
+            navLinks.classList.remove('open');
+        });
+    });
+
+    // ===== FAQ ACCORDION =====
+    document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const item = btn.closest('.faq-item');
+            const isOpen = item.classList.contains('open');
+
+            // Close all others
+            document.querySelectorAll('.faq-item.open').forEach(openItem => {
+                if (openItem !== item) openItem.classList.remove('open');
+            });
+
+            item.classList.toggle('open', !isOpen);
+        });
+    });
+
+    // ===== WEBHOOK URL — same for form and chat =====
+    const WEBHOOK_URL = 'https://dovmant.app.n8n.cloud/webhook/exonr-lead';
+
+    // ===== MAIN FORM HANDLING =====
+    const form = document.getElementById('contactForm');
+    const formSuccess = document.getElementById('formSuccess');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
+
+        const payload = {
+            source: 'website_form',
+            name: form.querySelector('#name').value,
+            email: form.querySelector('#email').value,
+            business: form.querySelector('#business').value,
+            challenge: form.querySelector('#challenge').value,
+            city: form.querySelector('#city').value || '',
+            page: window.location.href,
+            timestamp: new Date().toISOString()
+        };
+
+        try {
+            const response = await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                form.style.display = 'none';
+                formSuccess.classList.add('show');
+            } else {
+                btn.textContent = 'Something went wrong. Try again.';
+                btn.disabled = false;
+            }
+        } catch (err) {
+            btn.textContent = 'Connection error. Try again.';
+            btn.disabled = false;
+        }
+    });
+
+    // ===== CONVERSATIONAL CHAT WIDGET =====
+    const chatWidget = document.getElementById('chatWidget');
+    const chatBubble = document.getElementById('chatBubble');
+    const chatTooltip = document.getElementById('chatTooltip');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const chatSend = document.getElementById('chatSend');
+
+    // Uses shared WEBHOOK_URL defined above
+
+    let chatStarted = false;
+    let chatStep = 0;
+    const chatData = { name: '', business: '', challenge: '', email: '' };
+
+    const chatFlow = [
+        {
+            bot: "Hey there! I'm the EXONR assistant. Looking to automate something in your business?",
+            bot2: "Let's start simple \u2014 what's your name?",
+            type: 'text',
+            field: 'name',
+            placeholder: 'Type your name...'
+        },
+        {
+            bot: null, // set dynamically
+            type: 'quick',
+            field: 'business',
+            options: ['HVAC', 'Plumbing', 'Roofing', 'Electrical', 'Landscaping', 'Pest Control', 'Other'],
+            placeholder: 'Or type your trade...'
+        },
+        {
+            bot: "What's the biggest headache in your business right now?",
+            type: 'quick',
+            field: 'challenge',
+            options: ['Missing leads / calls', 'Need more reviews', 'Ads not working', 'Too much manual work'],
+            placeholder: 'Or tell us in your own words...'
+        },
+        {
+            bot: "Last one \u2014 what's the best email to reach you?",
+            type: 'email',
+            field: 'email',
+            placeholder: 'your@email.com'
+        }
+    ];
+
+    function scrollChat() {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function addBotMsg(text) {
+        return new Promise(resolve => {
+            // Show typing indicator
+            const typing = document.createElement('div');
+            typing.className = 'chat-typing';
+            typing.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(typing);
+            scrollChat();
+
+            setTimeout(() => {
+                typing.remove();
+                const msg = document.createElement('div');
+                msg.className = 'chat-msg bot';
+                msg.textContent = text;
+                chatMessages.appendChild(msg);
+                scrollChat();
+                resolve();
+            }, 600 + Math.random() * 400);
+        });
+    }
+
+    function addUserMsg(text) {
+        const msg = document.createElement('div');
+        msg.className = 'chat-msg user';
+        msg.textContent = text;
+        chatMessages.appendChild(msg);
+        scrollChat();
+    }
+
+    function showQuickReplies(options) {
+        const container = document.createElement('div');
+        container.className = 'chat-quick-replies';
+        options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'chat-quick-btn';
+            btn.textContent = opt;
+            btn.addEventListener('click', () => {
+                container.remove();
+                handleUserInput(opt);
+            });
+            container.appendChild(btn);
+        });
+        chatMessages.appendChild(container);
+        scrollChat();
+    }
+
+    function enableInput(placeholder) {
+        chatInput.disabled = false;
+        chatSend.disabled = false;
+        chatInput.placeholder = placeholder || 'Type your answer...';
+        chatInput.focus();
+    }
+
+    function disableInput() {
+        chatInput.disabled = true;
+        chatSend.disabled = true;
+        chatInput.value = '';
+    }
+
+    async function startChat() {
+        if (chatStarted) return;
+        chatStarted = true;
+        chatStep = 0;
+
+        const step = chatFlow[0];
+        await addBotMsg(step.bot);
+        if (step.bot2) await addBotMsg(step.bot2);
+        enableInput(step.placeholder);
+    }
+
+    async function handleUserInput(value) {
+        if (!value.trim()) return;
+        disableInput();
+
+        const step = chatFlow[chatStep];
+        addUserMsg(value);
+        chatData[step.field] = value;
+        chatStep++;
+
+        if (chatStep >= chatFlow.length) {
+            // Done — send data
+            await addBotMsg(`Thanks ${chatData.name}! We'll review your info and reach out within 24 hours.`);
+            await addBotMsg("Talk soon \u{1F44B}");
+            submitChatData();
+            return;
+        }
+
+        const next = chatFlow[chatStep];
+
+        // Dynamic bot message for step 2
+        if (chatStep === 1 && !next.bot) {
+            next.bot = `Nice to meet you, ${chatData.name}! What type of business do you run?`;
+        }
+
+        await addBotMsg(next.bot);
+
+        if (next.type === 'quick') {
+            showQuickReplies(next.options);
+            enableInput(next.placeholder);
+        } else {
+            enableInput(next.placeholder);
+        }
+    }
+
+    async function submitChatData() {
+        try {
+            await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    source: 'chat_widget',
+                    name: chatData.name,
+                    business: chatData.business,
+                    challenge: chatData.challenge,
+                    email: chatData.email,
+                    page: window.location.href,
+                    timestamp: new Date().toISOString()
+                })
+            });
+        } catch (e) {
+            // Silently fail — data already shown in chat
+        }
+    }
+
+    // Input handlers
+    chatSend.addEventListener('click', () => {
+        const val = chatInput.value.trim();
+        if (val) handleUserInput(val);
+    });
+    chatInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !chatInput.disabled) {
+            const val = chatInput.value.trim();
+            if (val) handleUserInput(val);
+        }
+    });
+
+    // Open/close chat
+    chatBubble.addEventListener('click', () => {
+        const isOpen = chatWidget.classList.toggle('open');
+        chatTooltip.classList.remove('show');
+        if (isOpen && !chatStarted) {
+            setTimeout(startChat, 400);
+        }
+    });
+
+    // Show tooltip after 5 seconds
+    setTimeout(() => {
+        if (!chatWidget.classList.contains('open')) {
+            chatTooltip.classList.add('show');
+            setTimeout(() => chatTooltip.classList.remove('show'), 4000);
+        }
+    }, 5000);
+
+    // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.querySelector(anchor.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // ===== COUNTER ANIMATION =====
+    const counters = document.querySelectorAll('.stat-item h3, .result-number');
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.dataset.animated) {
+                entry.target.dataset.animated = 'true';
+                const span = entry.target.querySelector('span');
+                if (span) {
+                    const text = span.textContent;
+                    const num = parseInt(text.replace(/[^0-9]/g, ''));
+                    if (!isNaN(num) && num > 0) {
+                        const prefix = text.match(/^[^0-9]*/)[0];
+                        const suffix = text.match(/[^0-9]*$/)[0];
+                        let current = 0;
+                        const step = Math.ceil(num / 40);
+                        const interval = setInterval(() => {
+                            current += step;
+                            if (current >= num) {
+                                current = num;
+                                clearInterval(interval);
+                            }
+                            span.textContent = prefix + current + suffix;
+                        }, 30);
+                    }
+                }
+            }
+        });
+    }, { threshold: 0.5 });
+    counters.forEach(el => counterObserver.observe(el));
+</script>
+
+</body>
+</html>
