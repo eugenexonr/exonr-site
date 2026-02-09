@@ -5,6 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EXONR | AI Automation for Home Services</title>
     <meta name="description" content="Stop losing leads. Automate your follow-ups, reviews, and marketing — so you can focus on the job. Built for HVAC, roofing, plumbing & contractors in Colorado.">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Exonr AI — AI Automation for Home Services">
+    <meta property="og:description" content="Custom AI chatbots, automated lead follow-up, review generation, and workflow automation for contractors in Colorado.">
+    <meta property="og:url" content="https://exonr.com">
+    <meta property="og:site_name" content="Exonr AI">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Exonr AI — AI Automation for Home Services">
+    <meta name="twitter:description" content="Custom AI chatbots, automated lead follow-up, review generation, and workflow automation for contractors in Colorado.">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Exonr AI",
+        "alternateName": "Exodeus LLC",
+        "url": "https://exonr.com",
+        "email": "eugene@exonr.com",
+        "description": "AI automation agency building custom chatbots, lead follow-up systems, and workflow automation for home service businesses in Colorado.",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Centennial",
+            "addressRegion": "CO",
+            "addressCountry": "US"
+        },
+        "areaServed": {
+            "@type": "GeoCircle",
+            "geoMidpoint": {
+                "@type": "GeoCoordinates",
+                "latitude": 39.5797,
+                "longitude": -104.8769
+            },
+            "geoRadius": "40000"
+        },
+        "serviceType": ["AI Chatbot Development", "Business Process Automation", "Workflow Automation", "AI Consulting", "Lead Generation Automation"],
+        "priceRange": "$$"
+    }
+    </script>
+
+    <!-- GA4: Replace G-XXXXXXXXXX with your Measurement ID from analytics.google.com -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script> -->
+
+    <!-- Google Ads Conversion: Replace AW-XXXXXXXXXX with your Conversion ID from ads.google.com -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-XXXXXXXXXX');
+    </script> -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -1145,6 +1207,84 @@
             color: var(--text-light);
             font-size: 0.95rem;
         }
+
+        /* ===== PORTFOLIO ===== */
+        .portfolio {
+            padding: 80px 0;
+            background: var(--gray-50);
+        }
+        .portfolio-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+        }
+        .portfolio-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(28, 43, 96, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(28, 43, 96, 0.12);
+        }
+        .portfolio-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            object-position: top left;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .portfolio-body {
+            padding: 24px;
+        }
+        .portfolio-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--red);
+            background: rgba(212, 30, 64, 0.08);
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+        .portfolio-body h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+        .portfolio-body p {
+            font-size: 0.88rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .portfolio-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .portfolio-stat {
+            font-size: 0.78rem;
+            color: var(--gray-600);
+        }
+        .portfolio-stat strong {
+            color: var(--navy);
+            font-weight: 700;
+        }
+        @media (max-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1157,6 +1297,7 @@
             <li><a href="#industries">Industries</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact" class="nav-cta">Free Consultation</a></li>
         </ul>
@@ -1410,6 +1551,71 @@
                 <div class="result-number"><span>10</span>+</div>
                 <h4>Hours Saved Per Week</h4>
                 <p>No more manual follow-ups and chasing callbacks</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PORTFOLIO ===== -->
+<section class="portfolio" id="portfolio">
+    <div class="container">
+        <div class="portfolio-header fade-up">
+            <div class="section-label">Our Work</div>
+            <h2 class="section-title">Real Automations We've Built</h2>
+            <p class="section-subtitle">Here's a look at actual AI tools and dashboards we've built for businesses like yours.</p>
+        </div>
+        <div class="portfolio-grid">
+            <div class="portfolio-card fade-up">
+                <img class="portfolio-img" src="portfolio-ai-marketer.png" alt="AI Marketer — Google Ads management dashboard" loading="lazy">
+                <div class="portfolio-body">
+                    <span class="portfolio-tag">Google Ads Automation</span>
+                    <h4>AI Campaign Manager</h4>
+                    <p>AI assistant that manages Google Ads campaigns through natural language. Generates campaign strategies, monitors performance, detects anomalies, and produces weekly reports automatically.</p>
+                    <div class="portfolio-stats">
+                        <span class="portfolio-stat"><strong>27</strong> AI tools</span>
+                        <span class="portfolio-stat"><strong>24/7</strong> monitoring</span>
+                        <span class="portfolio-stat"><strong>$10.77</strong> avg CPA</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card fade-up fade-up-delay-1">
+                <img class="portfolio-img" src="portfolio-dashboard.png" alt="Performance dashboard with KPI cards and charts" loading="lazy">
+                <div class="portfolio-body">
+                    <span class="portfolio-tag">Analytics Dashboard</span>
+                    <h4>Real-Time Performance Dashboard</h4>
+                    <p>Live KPI cards, daily spend and conversion charts, campaign metrics table, anomaly alerts, and script history — all updating automatically from your ad accounts.</p>
+                    <div class="portfolio-stats">
+                        <span class="portfolio-stat"><strong>5</strong> KPI cards</span>
+                        <span class="portfolio-stat"><strong>WoW</strong> change tracking</span>
+                        <span class="portfolio-stat"><strong>Auto</strong> alerts</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card fade-up fade-up-delay-2">
+                <img class="portfolio-img" src="portfolio-bcc-dashboard.png" alt="Business Command Center financial dashboard" loading="lazy">
+                <div class="portfolio-body">
+                    <span class="portfolio-tag">Business Intelligence</span>
+                    <h4>Business Command Center</h4>
+                    <p>Multi-entity financial dashboard with AI-powered tax, finance, and legal assistants. Revenue tracking, expense breakdown, compliance alerts, and automated reporting across all business entities.</p>
+                    <div class="portfolio-stats">
+                        <span class="portfolio-stat"><strong>34</strong> pages</span>
+                        <span class="portfolio-stat"><strong>3</strong> AI agents</span>
+                        <span class="portfolio-stat"><strong>80+</strong> tools</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card fade-up fade-up-delay-3">
+                <img class="portfolio-img" src="portfolio-bcc-kpi.png" alt="KPI health score dashboard" loading="lazy">
+                <div class="portfolio-body">
+                    <span class="portfolio-tag">KPI Monitoring</span>
+                    <h4>Business Health Score</h4>
+                    <p>Automated health scoring across profitability, liquidity, growth, and efficiency metrics. Configurable thresholds by business type with real-time alerts when KPIs drop below target.</p>
+                    <div class="portfolio-stats">
+                        <span class="portfolio-stat"><strong>17</strong> metrics</span>
+                        <span class="portfolio-stat"><strong>0-100</strong> health score</span>
+                        <span class="portfolio-stat"><strong>Auto</strong> alerts</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1720,6 +1926,8 @@
             if (response.ok) {
                 form.style.display = 'none';
                 formSuccess.classList.add('show');
+                // Google Ads conversion (uncomment after setting up conversion action):
+                // gtag('event', 'conversion', { 'send_to': 'AW-XXXXXXXXXX/CONVERSION_LABEL' });
             } else {
                 btn.textContent = 'Something went wrong. Try again.';
                 btn.disabled = false;
@@ -1897,6 +2105,8 @@
                     timestamp: new Date().toISOString()
                 })
             });
+            // Google Ads conversion (uncomment after setting up conversion action):
+            // gtag('event', 'conversion', { 'send_to': 'AW-XXXXXXXXXX/CONVERSION_LABEL' });
         } catch (e) {
             // Silently fail — data already shown in chat
         }
