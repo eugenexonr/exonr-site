@@ -49,23 +49,23 @@
     }
     </script>
 
-    <!-- GA4: Replace G-XXXXXXXXXX with your Measurement ID from analytics.google.com -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E3WJ6ENGSV"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
-    </script> -->
+        gtag('config', 'G-E3WJ6ENGSV');
+    </script>
 
-    <!-- Google Ads Conversion: Replace AW-XXXXXXXXXX with your Conversion ID from ads.google.com -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>
+    <!-- Google Ads Conversion -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17927102046"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'AW-XXXXXXXXXX');
-    </script> -->
+        gtag('config', 'AW-17927102046');
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1952,8 +1952,7 @@
             if (response.ok) {
                 form.style.display = 'none';
                 formSuccess.classList.add('show');
-                // Google Ads conversion (uncomment after setting up conversion action):
-                // gtag('event', 'conversion', { 'send_to': 'AW-XXXXXXXXXX/CONVERSION_LABEL' });
+                gtag('event', 'conversion', { 'send_to': 'AW-17927102046/-KuSCNWr4vUbEN68p-RC' });
             } else {
                 btn.textContent = 'Something went wrong. Try again.';
                 btn.disabled = false;
@@ -2131,8 +2130,7 @@
                     timestamp: new Date().toISOString()
                 })
             });
-            // Google Ads conversion (uncomment after setting up conversion action):
-            // gtag('event', 'conversion', { 'send_to': 'AW-XXXXXXXXXX/CONVERSION_LABEL' });
+            gtag('event', 'conversion', { 'send_to': 'AW-17927102046/-KuSCNWr4vUbEN68p-RC' });
         } catch (e) {
             // Silently fail — data already shown in chat
         }
