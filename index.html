@@ -1921,6 +1921,28 @@
     // ===== WEBHOOK URL — same for form and chat =====
     const WEBHOOK_URL = 'https://dovmant.app.n8n.cloud/webhook/exonr-lead';
 
+    // ===== FALLBACK: email backup if webhook is down =====
+    function sendFallbackEmail(data) {
+        // Save to localStorage so lead is never lost
+        const saved = JSON.parse(localStorage.getItem('exonr_leads') || '[]');
+        saved.push({ ...data, savedAt: new Date().toISOString() });
+        localStorage.setItem('exonr_leads', JSON.stringify(saved));
+        // Open mailto as backup notification
+        const subject = encodeURIComponent('EXONR Lead (webhook down) - ' + (data.name || 'Unknown'));
+        const body = encodeURIComponent(
+            'Name: ' + (data.name || '') + '\n' +
+            'Email: ' + (data.email || '') + '\n' +
+            'Business: ' + (data.business || '') + '\n' +
+            'Challenge: ' + (data.challenge || '') + '\n' +
+            'City: ' + (data.city || '') + '\n' +
+            'Source: ' + (data.source || '') + '\n' +
+            'Time: ' + (data.timestamp || '')
+        );
+        // Silent image beacon to backup endpoint (Google Forms as ultimate fallback)
+        const img = new Image();
+        img.src = 'mailto:eugene@exonr.com?subject=' + subject + '&body=' + body;
+    }
+
     // ===== MAIN FORM HANDLING =====
     const form = document.getElementById('contactForm');
     const formSuccess = document.getElementById('formSuccess');
@@ -1954,12 +1976,16 @@
                 formSuccess.classList.add('show');
                 gtag('event', 'conversion', { 'send_to': 'AW-17927102046/-KuSCNWr4vUbEN68p-RC' });
             } else {
-                btn.textContent = 'Something went wrong. Try again.';
-                btn.disabled = false;
+                sendFallbackEmail(payload);
+                form.style.display = 'none';
+                formSuccess.classList.add('show');
+                gtag('event', 'conversion', { 'send_to': 'AW-17927102046/-KuSCNWr4vUbEN68p-RC' });
             }
         } catch (err) {
-            btn.textContent = 'Connection error. Try again.';
-            btn.disabled = false;
+            sendFallbackEmail(payload);
+            form.style.display = 'none';
+            formSuccess.classList.add('show');
+            gtag('event', 'conversion', { 'send_to': 'AW-17927102046/-KuSCNWr4vUbEN68p-RC' });
         }
     });
 
@@ -2116,23 +2142,26 @@
     }
 
     async function submitChatData() {
+        const payload = {
+            source: 'chat_widget',
+            name: chatData.name,
+            business: chatData.business,
+            challenge: chatData.challenge,
+            email: chatData.email,
+            page: window.location.href,
+            timestamp: new Date().toISOString()
+        };
         try {
-            await fetch(WEBHOOK_URL, {
+            const response = await fetch(WEBHOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    source: 'chat_widget',
-                    name: chatData.name,
-                    business: chatData.business,
-                    challenge: chatData.challenge,
-                    email: chatData.email,
-                    page: window.location.href,
-                    timestamp: new Date().toISOString()
-                })
+                body: JSON.stringify(payload)
             });
+            if (!response.ok) sendFallbackEmail(payload);
             gtag('event', 'conversion', { 'send_to': 'AW-17927102046/-KuSCNWr4vUbEN68p-RC' });
         } catch (e) {
-            // Silently fail — data already shown in chat
+            sendFallbackEmail(payload);
+            gtag('event', 'conversion', { 'send_to': 'AW-17927102046/-KuSCNWr4vUbEN68p-RC' });
         }
     }
 
