@@ -91,7 +91,7 @@ function main() {
   var report = AdsApp.report(
     "SELECT search_term_view.search_term, " +
     "segments.keyword.info.text, " +
-    "segments.keyword.ad_group_criterion.keyword.match_type, " +
+    "segments.keyword.info.match_type, " +
     "metrics.impressions, " +
     "metrics.clicks, " +
     "metrics.cost_micros, " +
