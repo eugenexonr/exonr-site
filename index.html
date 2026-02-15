@@ -122,6 +122,50 @@
         .fade-up-delay-4 { transition-delay: 0.4s; }
         .fade-up-delay-5 { transition-delay: 0.5s; }
 
+        /* ===== SCROLL PROGRESS BAR ===== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--red), var(--purple));
+            z-index: 1001;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* ===== GRADIENT TEXT UTILITY ===== */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--red), var(--purple-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== GLOW CARD EFFECT ===== */
+        .glow-card {
+            position: relative;
+        }
+        .glow-card::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(212,30,64,0.2), rgba(120,42,128,0.2));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+            filter: blur(12px);
+        }
+        .glow-card:hover::after {
+            opacity: 1;
+        }
+
+        /* ===== ANIMATED COUNTER ===== */
+        .count-up {
+            display: inline-block;
+        }
+
         /* ===== NAV ===== */
         .nav {
             position: fixed;
@@ -315,8 +359,9 @@
         /* ===== STATS BAR ===== */
         .stats-bar {
             background: var(--white);
-            padding: 48px 0;
+            padding: 56px 0;
             border-bottom: 1px solid var(--gray-100);
+            position: relative;
         }
         .stats-grid {
             display: grid;
@@ -324,17 +369,39 @@
             gap: 40px;
             text-align: center;
         }
-        .stat-item h3 {
-            font-size: 2.4rem;
-            font-weight: 900;
-            color: var(--navy);
-            margin-bottom: 4px;
+        .stat-item {
+            position: relative;
         }
-        .stat-item h3 span { color: var(--red); }
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: 15%;
+            height: 70%;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--gray-200), transparent);
+        }
+        .stat-item h3 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, var(--navy), var(--navy-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-item h3 span {
+            background: linear-gradient(135deg, var(--red), var(--purple-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
         .stat-item p {
             color: var(--text-light);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 500;
+            max-width: 200px;
+            margin: 0 auto;
         }
 
         /* ===== PROBLEM SECTION ===== */
@@ -376,25 +443,42 @@
         }
         .pain-card {
             background: var(--white);
-            border-radius: 12px;
-            padding: 32px;
+            border-radius: 16px;
+            padding: 36px 32px;
             border: 1px solid var(--gray-100);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+        .pain-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(212,30,64,0.15), rgba(120,42,128,0.15));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+            filter: blur(16px);
         }
         .pain-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(28, 43, 96, 0.08);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(28, 43, 96, 0.1);
+            border-color: rgba(212, 30, 64, 0.15);
+        }
+        .pain-card:hover::before {
+            opacity: 1;
         }
         .pain-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 10px;
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
             margin-bottom: 20px;
-            background: rgba(212, 30, 64, 0.08);
+            background: linear-gradient(135deg, rgba(212, 30, 64, 0.08), rgba(120, 42, 128, 0.06));
         }
         .pain-card h4 {
             font-size: 1.1rem;
@@ -408,45 +492,103 @@
             line-height: 1.6;
         }
 
-        /* ===== INDUSTRIES ===== */
+        /* ===== INDUSTRIES / USE CASES ===== */
         .industries {
-            padding: 80px 0;
+            padding: 100px 0;
             background: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        .industries::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gray-200), transparent);
         }
         .industries-header {
             text-align: center;
-            max-width: 600px;
-            margin: 0 auto 56px;
+            max-width: 680px;
+            margin: 0 auto 64px;
         }
-        .industries-grid {
+        .use-case-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
         }
-        .industry-item {
-            text-align: center;
-            padding: 28px 16px;
-            border-radius: 12px;
-            border: 1px solid var(--gray-100);
+        .use-case-card {
+            position: relative;
             background: var(--gray-50);
-            transition: all 0.3s ease;
+            border-radius: 16px;
+            padding: 36px 28px;
+            border: 1px solid var(--gray-100);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: default;
+            overflow: hidden;
         }
-        .industry-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(28, 43, 96, 0.08);
-            border-color: var(--red);
+        .use-case-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--red), var(--purple));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
         }
-        .industry-icon {
-            font-size: 2rem;
+        .use-case-card:hover::before {
+            transform: scaleX(1);
+        }
+        .use-case-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(28, 43, 96, 0.1);
+            border-color: transparent;
+        }
+        .use-case-label {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--purple);
+            margin-bottom: 14px;
+        }
+        .use-case-card h4 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--navy);
             margin-bottom: 12px;
-            display: block;
+            line-height: 1.3;
         }
-        .industry-item span:last-child {
-            font-size: 0.8rem;
+        .use-case-card p {
+            color: var(--text-light);
+            font-size: 0.88rem;
+            line-height: 1.65;
+            margin-bottom: 20px;
+        }
+        .use-case-flow {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .flow-step {
+            font-size: 0.7rem;
             font-weight: 700;
             color: var(--navy);
-            letter-spacing: 0.3px;
+            background: var(--white);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--gray-200);
+            white-space: nowrap;
+        }
+        .flow-arrow {
+            color: var(--gray-200);
+            font-size: 0.7rem;
         }
 
         /* ===== SERVICES ===== */
@@ -1165,6 +1307,8 @@
             .hero-buttons .btn { text-align: center; justify-content: center; }
 
             .pain-grid { grid-template-columns: 1fr; }
+            .use-case-grid { grid-template-columns: 1fr; }
+            .stat-item:not(:last-child)::after { display: none; }
             .results-grid { grid-template-columns: 1fr 1fr; }
             .form-row { grid-template-columns: 1fr; }
 
@@ -1176,9 +1320,9 @@
         @media (max-width: 480px) {
             .results-grid { grid-template-columns: 1fr; }
             .section-title { font-size: 1.6rem; }
-            .industries-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
-            .industry-item { padding: 20px 8px; }
-            .industry-icon { font-size: 1.6rem; }
+            .use-case-grid { grid-template-columns: 1fr; }
+            .use-case-flow { gap: 4px; }
+            .flow-step { font-size: 0.65rem; padding: 3px 8px; }
         }
 
         /* ===== SUCCESS MESSAGE ===== */
@@ -1378,26 +1522,52 @@
 <section class="industries" id="industries">
     <div class="container">
         <div class="industries-header fade-up">
-            <div class="section-label">Who We Work With</div>
-            <h2 class="section-title">Built for Service Teams with Real Operational Bottlenecks</h2>
-            <p class="section-subtitle">Start horizontal, then narrow by signal. We work with teams where speed, follow-up, and process consistency drive revenue.</p>
+            <div class="section-label">What We Automate</div>
+            <h2 class="section-title">Real Workflows. Real Integrations. Running in Production.</h2>
+            <p class="section-subtitle">We connect the tools you already use and build the automation layer between them &mdash; so your processes run without manual handoffs.</p>
         </div>
-        <div class="industries-grid">
-            <div class="industry-item fade-up">
-                <span class="industry-icon">&#10052;&#65039;</span>
-                <span>Professional Services</span>
+        <div class="use-case-grid">
+            <div class="use-case-card fade-up">
+                <div class="use-case-label">Lead Operations</div>
+                <h4>Inbound Lead &rarr; Qualified &rarr; CRM &rarr; Follow-Up</h4>
+                <p>A lead hits your website form. Within seconds: AI qualifies it, routes to the right person, creates a CRM record, and kicks off a follow-up sequence. No one copies anything manually.</p>
+                <div class="use-case-flow">
+                    <span class="flow-step">Website Form</span>
+                    <span class="flow-arrow">&rarr;</span>
+                    <span class="flow-step">AI Qualification</span>
+                    <span class="flow-arrow">&rarr;</span>
+                    <span class="flow-step">CRM</span>
+                    <span class="flow-arrow">&rarr;</span>
+                    <span class="flow-step">Auto Follow-Up</span>
+                </div>
             </div>
-            <div class="industry-item fade-up fade-up-delay-1">
-                <span class="industry-icon">&#9889;</span>
-                <span>Real Estate</span>
+            <div class="use-case-card fade-up fade-up-delay-1">
+                <div class="use-case-label">Revenue Operations</div>
+                <h4>Deal Closed &rarr; Invoice &rarr; Payment &rarr; Books Updated</h4>
+                <p>When a deal closes in your CRM, the invoice generates automatically, gets sent to the client, payment is tracked, and your accounting is updated &mdash; end to end, zero touch.</p>
+                <div class="use-case-flow">
+                    <span class="flow-step">CRM Deal Won</span>
+                    <span class="flow-arrow">&rarr;</span>
+                    <span class="flow-step">Auto Invoice</span>
+                    <span class="flow-arrow">&rarr;</span>
+                    <span class="flow-step">Payment Track</span>
+                    <span class="flow-arrow">&rarr;</span>
+                    <span class="flow-step">Accounting</span>
+                </div>
             </div>
-            <div class="industry-item fade-up fade-up-delay-3">
-                <span class="industry-icon">&#127959;&#65039;</span>
-                <span>Construction Ops</span>
-            </div>
-            <div class="industry-item fade-up fade-up-delay-4">
-                <span class="industry-icon">&#127970;</span>
-                <span>Other Service Business</span>
+            <div class="use-case-card fade-up fade-up-delay-2">
+                <div class="use-case-label">Reporting &amp; Intelligence</div>
+                <h4>3 Data Sources &rarr; One Dashboard &rarr; Weekly Brief</h4>
+                <p>Data from your CRM, ad accounts, and project tools is pulled together into a unified view. AI generates a plain-English weekly brief with anomalies, trends, and action items.</p>
+                <div class="use-case-flow">
+                    <span class="flow-step">CRM + Ads + PM</span>
+                    <span class="flow-arrow">&rarr;</span>
+                    <span class="flow-step">Unified Data</span>
+                    <span class="flow-arrow">&rarr;</span>
+                    <span class="flow-step">AI Analysis</span>
+                    <span class="flow-arrow">&rarr;</span>
+                    <span class="flow-step">Weekly Brief</span>
+                </div>
             </div>
         </div>
     </div>
@@ -1842,11 +2012,22 @@
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
+    // ===== SCROLL PROGRESS BAR =====
+    const scrollProgress = document.createElement('div');
+    scrollProgress.className = 'scroll-progress';
+    document.body.prepend(scrollProgress);
+
     // ===== NAV SCROLL EFFECT =====
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
         nav.classList.toggle('scrolled', window.scrollY > 60);
+        // Update scroll progress
+        const winScroll = document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        scrollProgress.style.width = (winScroll / height * 100) + '%';
     });
+
+    // (counter animation is at bottom of script)
 
     // ===== MOBILE MENU =====
     const mobileToggle = document.getElementById('mobileToggle');
