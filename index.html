@@ -613,8 +613,9 @@
             border-radius: 16px;
             padding: 40px 36px;
             border: 1px solid var(--gray-100);
-            transition: all 0.35s ease;
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             overflow: hidden;
+            transform-style: preserve-3d;
         }
         .service-card::before {
             content: '';
@@ -630,9 +631,9 @@
         }
         .service-card:hover::before { transform: scaleX(1); }
         .service-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
             box-shadow: 0 20px 50px rgba(28, 43, 96, 0.1);
-            border-color: transparent;
+            border-color: rgba(212,30,64,0.15);
         }
 
         .service-number {
@@ -681,6 +682,8 @@
         .how-it-works {
             padding: 100px 0;
             background: linear-gradient(180deg, var(--navy-dark) 0%, var(--navy) 100%);
+            position: relative;
+            overflow: hidden;
         }
         .how-header {
             text-align: center;
@@ -724,6 +727,18 @@
             font-size: 0.9rem;
             color: rgba(255,255,255,0.6);
             line-height: 1.6;
+        }
+        .step-timeline {
+            display: inline-block;
+            margin-top: 16px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--red);
+            background: rgba(212, 30, 64, 0.12);
+            padding: 5px 14px;
+            border-radius: 20px;
         }
 
         /* ===== RESULTS ===== */
@@ -1275,12 +1290,63 @@
         }
         .footer-links a:hover { color: var(--white); }
 
+        /* ===== TILT CARD 3D EFFECT ===== */
+        .tilt-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        /* ===== ANIMATED GRADIENT MESH (How It Works) ===== */
+        .how-it-works::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212,30,64,0.08) 0%, transparent 70%);
+            animation: float-orb 15s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes float-orb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-40px, 30px) scale(1.1); }
+            66% { transform: translate(20px, -20px) scale(0.95); }
+        }
+
+        /* ===== STEP CONNECTORS ===== */
+        .step::after {
+            content: '';
+            position: absolute;
+            top: 32px;
+            right: -20px;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(212,30,64,0.4), transparent);
+        }
+        .step:last-child::after {
+            display: none;
+        }
+
+        /* ===== TEXT REVEAL ANIMATION ===== */
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 968px) {
             .service-cards { grid-template-columns: 1fr; }
             .cta-wrapper { grid-template-columns: 1fr; gap: 48px; }
             .stats-grid { grid-template-columns: 1fr; gap: 24px; }
             .steps-grid { grid-template-columns: 1fr; gap: 32px; }
+            .step::after { display: none; }
             .industries-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
         }
 
@@ -1435,8 +1501,8 @@
     <div class="container">
         <a href="#hero" class="nav-logo">E<span>X</span>ONR</a>
         <ul class="nav-links" id="navLinks">
-            <li><a href="#industries">Who It Fits</a></li>
-            <li><a href="#services">Services</a></li>
+            <li><a href="#industries">Solutions</a></li>
+            <li><a href="#services">Capabilities</a></li>
             <li><a href="#how-it-works">How It Works</a></li>
             <li><a href="#portfolio">Portfolio</a></li>
             <li><a href="#faq">FAQ</a></li>
@@ -1577,53 +1643,53 @@
 <section class="services" id="services">
     <div class="container">
         <div class="services-header fade-up">
-            <div class="section-label">What We Do</div>
-            <h2 class="section-title">Automation That Pays for Itself</h2>
-            <p class="section-subtitle">Simple systems that work in the background 24/7 &mdash; so every lead gets a response, every happy customer leaves a review, and your marketing runs without babysitting.</p>
+            <div class="section-label">Capabilities</div>
+            <h2 class="section-title">The Automation Layer Your Business Is Missing</h2>
+            <p class="section-subtitle">Your tools exist. Your data exists. What's missing is the connective tissue &mdash; automated workflows that move information between systems without anyone touching it.</p>
         </div>
         <div class="service-cards">
-            <div class="service-card fade-up">
-                <div class="service-number">01 &mdash; Lead Catcher</div>
-                <h3>Never Miss a Lead Again</h3>
-                <p>When someone fills out your form or calls after hours, they get an instant response. The system qualifies the lead, books the appointment, and texts you the details.</p>
+            <div class="service-card tilt-card fade-up">
+                <div class="service-number">01 &mdash; Process Automation</div>
+                <h3>End-to-End Workflow Automation</h3>
+                <p>We connect your existing tools into automated workflows. A lead comes in &mdash; it's qualified, routed, logged, and followed up. A deal closes &mdash; the invoice generates, sends, and tracks payment. No copy-paste. No manual steps.</p>
                 <ul class="service-features">
-                    <li>Instant text/email response (under 60 seconds)</li>
-                    <li>Automatic follow-up if they don't respond</li>
-                    <li>Calendar booking without back-and-forth</li>
-                    <li>All leads tracked in one place</li>
+                    <li>Multi-step workflows across CRM, email, accounting, PM</li>
+                    <li>Conditional logic that handles edge cases automatically</li>
+                    <li>Real-time alerts when human attention is needed</li>
+                    <li>Full audit trail for every automated action</li>
                 </ul>
             </div>
-            <div class="service-card fade-up fade-up-delay-1">
-                <div class="service-number">02 &mdash; 5-Star Reviews</div>
-                <h3>Get Reviews on Autopilot</h3>
-                <p>After every completed job, the system automatically asks your customer for a review at the right moment &mdash; when they're happiest with your work.</p>
+            <div class="service-card tilt-card fade-up fade-up-delay-1">
+                <div class="service-number">02 &mdash; AI Integration</div>
+                <h3>AI That Does Real Work</h3>
+                <p>We deploy AI where it actually saves time: qualifying leads, generating personalized responses, summarizing data, detecting anomalies. Not chatbot gimmicks &mdash; production AI wired into your daily operations.</p>
                 <ul class="service-features">
-                    <li>Automated review request after job completion</li>
-                    <li>Smart timing for highest response rate</li>
-                    <li>Direct Google/Yelp review links</li>
-                    <li>Negative feedback caught privately before it goes public</li>
+                    <li>Lead qualification and scoring with natural language</li>
+                    <li>Automated email and proposal draft generation</li>
+                    <li>Document processing and data extraction</li>
+                    <li>Anomaly detection across your KPIs</li>
                 </ul>
             </div>
-            <div class="service-card fade-up fade-up-delay-2">
-                <div class="service-number">03 &mdash; Marketing Autopilot</div>
-                <h3>Ads That Actually Make You Money</h3>
-                <p>AI monitors your Google Ads around the clock &mdash; pausing what's wasting money, scaling what's working, and sending you plain-English reports on your ROI.</p>
+            <div class="service-card tilt-card fade-up fade-up-delay-2">
+                <div class="service-number">03 &mdash; System Integration</div>
+                <h3>Your Tools, Finally Connected</h3>
+                <p>CRM doesn't talk to accounting. PM is separate from invoicing. Every tool has its own data silo. We wire them together so one action cascades across your entire stack &mdash; no middleware, no manual sync.</p>
                 <ul class="service-features">
-                    <li>AI-managed Google Ads campaigns</li>
-                    <li>Weekly performance reports you can actually understand</li>
-                    <li>Budget protection &mdash; no runaway spending</li>
-                    <li>Targeted to your service area in Colorado</li>
+                    <li>Bi-directional sync between any SaaS tools you use</li>
+                    <li>Single source of truth across all platforms</li>
+                    <li>Automated data validation and deduplication</li>
+                    <li>Custom API integrations for niche tools</li>
                 </ul>
             </div>
-            <div class="service-card fade-up fade-up-delay-3">
-                <div class="service-number">04 &mdash; Business Brain</div>
-                <h3>Custom Automation, Built for You</h3>
-                <p>Got a specific process that eats up your time? We build a custom automation for it &mdash; invoicing, scheduling, inventory, you name it.</p>
+            <div class="service-card tilt-card fade-up fade-up-delay-3">
+                <div class="service-number">04 &mdash; Dashboards &amp; Reporting</div>
+                <h3>Intelligence Without the Manual Work</h3>
+                <p>Stop pulling numbers from five tabs every Monday. We build live dashboards that aggregate data from your CRM, ads, accounting, and PM &mdash; then AI generates a weekly brief with what changed, why, and what to do next.</p>
                 <ul class="service-features">
-                    <li>Process audit to find your biggest time wasters</li>
-                    <li>Custom-built automation (not cookie-cutter)</li>
-                    <li>Integrates with tools you already use</li>
-                    <li>ROI guarantee or we refund the setup</li>
+                    <li>Real-time KPI dashboard from all your data sources</li>
+                    <li>AI-generated weekly briefs in plain English</li>
+                    <li>Anomaly and trend alerts delivered to Slack or email</li>
+                    <li>Custom reports automated on any schedule</li>
                 </ul>
             </div>
         </div>
@@ -1634,25 +1700,28 @@
 <section class="how-it-works" id="how-it-works">
     <div class="container">
         <div class="how-header fade-up">
-            <div class="section-label">Simple Process</div>
-            <h2 class="section-title">Up and Running in Days, Not Months</h2>
-            <p class="section-subtitle">No long contracts. No confusing tech talk. Just results.</p>
+            <div class="section-label">Our Process</div>
+            <h2 class="section-title">From First Call to Production in 10 Days</h2>
+            <p class="section-subtitle">No six-month discovery phases. No platform migrations. We audit, build, and deploy &mdash; using the tools you already have.</p>
         </div>
         <div class="steps-grid">
             <div class="step fade-up">
                 <div class="step-number">1</div>
-                <h4>Automation Audit</h4>
-                <p>We look at your business, find where you're losing money, and show you exactly what automation can fix &mdash; with real dollar estimates.</p>
+                <h4>Audit &amp; Map</h4>
+                <p>We map your current processes, identify where manual work creates bottlenecks, and estimate the ROI of automating each one. You get a concrete plan with dollar figures.</p>
+                <div class="step-timeline">Day 1&ndash;2</div>
             </div>
             <div class="step fade-up fade-up-delay-1">
                 <div class="step-number">2</div>
-                <h4>We Build It</h4>
-                <p>Our team sets everything up. You don't need to learn any software or change how you work. It plugs right into your existing process.</p>
+                <h4>Design &amp; Build</h4>
+                <p>We design the workflow, connect your tools, deploy AI where it helps, and test end-to-end. No new platforms to learn &mdash; everything integrates with what you already use.</p>
+                <div class="step-timeline">Day 3&ndash;7</div>
             </div>
             <div class="step fade-up fade-up-delay-2">
                 <div class="step-number">3</div>
-                <h4>You See Results</h4>
-                <p>More leads answered. More reviews posted. More money in your pocket. You get a monthly report showing exactly how much the system saved you.</p>
+                <h4>Launch &amp; Optimize</h4>
+                <p>The automation goes live. We monitor performance, tune edge cases, and hand you a dashboard showing exactly what changed &mdash; time saved, errors eliminated, speed gained.</p>
+                <div class="step-timeline">Day 7&ndash;10</div>
             </div>
         </div>
     </div>
@@ -1662,30 +1731,30 @@
 <section class="results" id="results">
     <div class="container">
         <div class="results-header fade-up">
-            <div class="section-label">Real Numbers</div>
-            <h2 class="section-title">What Automation Does for Businesses Like Yours</h2>
-            <p class="section-subtitle">These are the outcomes our systems are designed to deliver for service-focused SMB teams.</p>
+            <div class="section-label">Outcomes</div>
+            <h2 class="section-title">What Changes After We Deploy</h2>
+            <p class="section-subtitle">These are the measurable outcomes our automation systems deliver for operational teams.</p>
         </div>
         <div class="results-grid">
             <div class="result-card fade-up">
-                <div class="result-number"><span>3x</span></div>
-                <h4>Faster Lead Response</h4>
-                <p>Respond in under 60 seconds instead of hours</p>
-            </div>
-            <div class="result-card fade-up fade-up-delay-1">
-                <div class="result-number"><span>40</span>%</div>
-                <h4>More 5-Star Reviews</h4>
-                <p>Just by asking at the right time, automatically</p>
-            </div>
-            <div class="result-card fade-up fade-up-delay-2">
-                <div class="result-number"><span>25</span>%</div>
-                <h4>Lower Ad Spend Waste</h4>
-                <p>AI cuts the keywords and ads that don't convert</p>
-            </div>
-            <div class="result-card fade-up fade-up-delay-3">
                 <div class="result-number"><span>10</span>+</div>
                 <h4>Hours Saved Per Week</h4>
-                <p>No more manual follow-ups and chasing callbacks</p>
+                <p>Manual data entry, copy-paste, and repetitive admin &mdash; eliminated</p>
+            </div>
+            <div class="result-card fade-up fade-up-delay-1">
+                <div class="result-number">&lt;<span>60</span>s</div>
+                <h4>Lead Response Time</h4>
+                <p>Leads get qualified and routed automatically, no human bottleneck</p>
+            </div>
+            <div class="result-card fade-up fade-up-delay-2">
+                <div class="result-number"><span>0</span></div>
+                <h4>Data Silos</h4>
+                <p>CRM, accounting, PM, and comms share data in real-time</p>
+            </div>
+            <div class="result-card fade-up fade-up-delay-3">
+                <div class="result-number"><span>7</span>&ndash;10</div>
+                <h4>Days to Production</h4>
+                <p>From first call to a working automation running live</p>
             </div>
         </div>
     </div>
@@ -1786,73 +1855,73 @@
 <section class="faq" id="faq">
     <div class="container">
         <div class="faq-header fade-up">
-            <div class="section-label">Questions?</div>
-            <h2 class="section-title">Straight Answers. No Tech Talk.</h2>
+            <div class="section-label">FAQ</div>
+            <h2 class="section-title">Common Questions</h2>
         </div>
         <div class="faq-list">
             <div class="faq-item fade-up">
                 <button class="faq-question">
-                    How much does this cost?
+                    How much does automation cost?
                     <span class="faq-icon">+</span>
                 </button>
                 <div class="faq-answer">
                     <div class="faq-answer-inner">
-                        We price based on the money we save you. During the free consultation, we estimate your annual savings from automation &mdash; then charge a fraction of that. If the system doesn't save you more than it costs, you don't pay. Simple as that.
+                        It depends on scope. We start with a fixed-fee Automation Diagnostic Sprint (process audit + one live automation deployed) so you see tangible results before committing to anything larger. After that, ongoing optimization is a flat monthly retainer &mdash; no surprise fees, no hourly billing. Every engagement starts with a concrete ROI estimate so you know the math before you spend.
                     </div>
                 </div>
             </div>
             <div class="faq-item fade-up fade-up-delay-1">
                 <button class="faq-question">
-                    Do I need to learn any new software?
+                    Do I need to switch my existing tools?
                     <span class="faq-icon">+</span>
                 </button>
                 <div class="faq-answer">
                     <div class="faq-answer-inner">
-                        No. Everything runs in the background. You'll get texts and emails like you normally do &mdash; the only difference is your leads get answered instantly, reviews get requested automatically, and you see clear reports on what's working. Nothing to log into or figure out.
+                        No. We build on top of what you already use &mdash; your CRM, accounting software, project management tools, email, Slack, whatever. The whole point is connecting your existing stack, not replacing it. If a tool needs upgrading, we'll tell you why with data, but we never force a migration.
                     </div>
                 </div>
             </div>
             <div class="faq-item fade-up fade-up-delay-2">
                 <button class="faq-question">
-                    How fast can you set this up?
+                    How fast can you deploy?
                     <span class="faq-icon">+</span>
                 </button>
                 <div class="faq-answer">
                     <div class="faq-answer-inner">
-                        Most setups are live within 3-5 business days. Lead Catcher and 5-Star Reviews can often be running in 48 hours. Google Ads management takes a bit longer because we do proper keyword research and campaign setup for your specific service area.
+                        Most automations are live within 7&ndash;10 business days from kickoff. Simple workflows (lead routing, notification chains, data sync) can be running in 2&ndash;3 days. More complex integrations involving AI, multi-system orchestration, or custom dashboards take the full sprint cycle. Either way &mdash; days, not months.
                     </div>
                 </div>
             </div>
             <div class="faq-item fade-up fade-up-delay-3">
                 <button class="faq-question">
-                    What if I already have a website / CRM / booking tool?
+                    What kind of businesses do you work with?
                     <span class="faq-icon">+</span>
                 </button>
                 <div class="faq-answer">
                     <div class="faq-answer-inner">
-                        We work with what you've got. Our automations plug into your existing website, Google Business profile, scheduling tools, and whatever else you use. No need to switch platforms or start over.
+                        Any service-oriented business with repeatable processes and a team that's outgrowing manual ops. Our sweet spot is professional services, agencies, real estate operations, construction, and field services &mdash; but the automation patterns apply anywhere you have lead flow, client handoffs, or recurring operational steps.
                     </div>
                 </div>
             </div>
             <div class="faq-item fade-up fade-up-delay-4">
                 <button class="faq-question">
-                    Is this just for Colorado businesses?
+                    Is this only for Colorado businesses?
                     <span class="faq-icon">+</span>
                 </button>
                 <div class="faq-answer">
                     <div class="faq-answer-inner">
-                        We are based in Colorado and work locally, but our systems are not limited to one vertical or one location. If your business has repeatable ops and lead flow, we can help.
+                        We're based in Colorado and many of our clients are local, but everything we build runs in the cloud. Location doesn't matter for the automation itself. If you value working with a team in the same timezone and want an in-person kickoff, being in Colorado is a plus &mdash; but it's not a requirement.
                     </div>
                 </div>
             </div>
-            <div class="faq-item fade-up fade-up-delay-4">
+            <div class="faq-item fade-up fade-up-delay-5">
                 <button class="faq-question">
-                    What happens if something breaks?
+                    What happens after deployment?
                     <span class="faq-icon">+</span>
                 </button>
                 <div class="faq-answer">
                     <div class="faq-answer-inner">
-                        All our setups come with a monthly support plan. We keep an eye on your automations and if anything needs attention, we handle it within one business day. You also get a direct line to our team for questions or changes. No surprise fees &mdash; support is included in your monthly plan.
+                        Every deployment includes monitoring and a support window. We watch for edge cases, tune the automations based on real data, and handle any issues within one business day. For clients on a monthly plan, we continuously optimize &mdash; adding new workflows, adjusting AI models, and expanding automation coverage as your business evolves.
                     </div>
                 </div>
             </div>
